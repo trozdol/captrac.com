@@ -24,13 +24,13 @@
 		
 		<span class="i-title">Title for App or View</span>
 		
-		<a class="i-text-btn" icon="check" href="mailto:foo@bar.com">Email Icon BTN</a>
-		<a class="i-text-btn" icon="check" href="mailto:foo@bar.com">BUTTON</a>
-		<a class="i-text-btn" icon="check" href="mailto:foo@bar.com">BTN</a>
+		<a class="i-text-btn" icon="check" href="mailto:foo@bar.com" title="Email Icon BTN"></a>
+		<a class="i-text-btn" title="Text BTN">Text BTN</a>
 		
 	</div>
 	
 	<header>
+	
 		<section>
 
 			<h1>All Headings</h1>
@@ -48,6 +48,32 @@
 		</section>
 		
 	</header>
+	
+	<section>
+		
+		<section>
+			
+			<h3>These styles are somewhat of a wireframe. Most of this can be dropped in without changing the existing Markup. The goal here is to stye most of the elements without the need for adding classes and IDs.</h3>
+			
+		</section>
+		
+		<section class="column">
+		
+			<h2>Page Text Elements</h2>
+			
+			<p>This is a general purpose <i>Paragraph Tag</i> You can use this for whatever you like.</p>
+			
+			<h3>Also...</h3>
+			
+			<p>When you have multiple paragraph tags you like <a href="#">this</a>, you can place headers like the one above inbetween.</p>
+			
+			<h4>Here's an H4 tag just cause</h4>
+			
+			<p>The titles will be auto caps for now. We can make these style changes globally easily. Lorem ipsum dolor sit amet, eu enim scriptorem pri. Ad mea animal oportere, ne dicam patrioque intellegam eum. Ceteros inciderint in eum, omnis persecuti adversarium qui te, modo quaerendum ei quo. Has invidunt imperdiet id, usu ei prodesset vituperata instructior. Te qui tollit fastidii, appareat evertitur sadipscing has et, qui ex partiendo forensibus.</p>
+			
+		</section>
+
+	</section>
 		
 	<section>
 		
@@ -64,7 +90,14 @@
 				<a href="#nowhere" title="">Nav Btn</a>
 			</nav>
 			
-			<button class="i-icon-btn" icon="list" href="#">Menu</button>	
+			<p>
+				<button class="i-icon-btn" icon="list" href="#">Default</button>
+				<button class="i-icon-btn" icon="list" href="#">Browser</button>
+				<button class="i-icon-btn" icon="list" href="#">Button</button>
+				<button class="i-icon-btn" icon="list" href="#">Styles</button>
+				<button class="i-icon-btn" icon="list" href="#">Coming</button>
+				<button class="i-icon-btn" icon="list" href="#">Soon</button>
+			</p>
 
 		</section>
 
@@ -177,8 +210,131 @@
 			</div>
 
 		</section><!-- END FIELD GROUP -->
+
+		<section class="i-fieldgroup no-label">	
+			
+			<h2>Input Fields Without Labels</h2>
+			
+			<div class="i-field-checkbox no-label">
+				<label class="i-label-text" for="name">Text: </label>
+				
+				<div class="i-input-box">
+					<input class="i-input" type="text" name="Name" id="name" placeholder="Name" required/>
+				</div>
+			</div>
+			
+			<div class="i-field-email no-label">
+				<label for="email">Email: </label>
+				<div class="i-input-box">
+					<input type="email" name="Email" id="email" placeholder="Email" />
+				</div>
+			</div>
+			
+			<div class="i-field-checkbox no-label">
+				<label for="url">URL: </label>
+
+				<div class="i-input-box">
+					<input type="url" name="Url" id="url" placeholder="Url" />
+				</div>
+			</div>
+			
+			<div class="i-field-phone no-label">
+				<label for="tel">Phone: </label>
+
+				<div class="i-input-box">
+					<input type="tel" name="Tel" id="tel" placeholder="+1 (234) 567-890" />
+				</div>
+			</div>
+			
+			<div class="i-field-number no-label">
+				<label for="number">Number: </label>
+
+				<div class="i-input-box">
+					<input type="number" name="number" id="number" placeholder="1(234)567-890" />
+				</div>
+			</div>
+			
+			<div class="i-field-date no-label">
+				<label for="date">Date: </label>
+
+				<div class="i-input-box">
+					<input type="date" name="date" id="date" placeholder="20-09-2010" />
+				</div>
+			</div>
+			
+			<div class="i-field-datetime no-label">
+				<label for="datetime">Date/Time: </label>
+	
+				<div class="i-input-box">
+					<input type="datetime" name="datetime" id="datetime" placeholder="2010-10-15 T00:00Z" />
+				</div>
+			</div>
+			
+			<div class="i-field-range no-label">
+				<label for="range">Range: </label>
+
+				<div class="i-input-box">
+					<input type="range" name="range" id="range" min="0" max="20" step="2" value="6"/>
+				</div>
+			</div>
+			
+			<div class="i-field-radio no-label">
+				<label for="radio">Radio: </label>
+
+				<div class="i-input-box">
+					<span icon="radio"></span>
+					<input type="radio" name="radio" id="radio_one" value="one">
+				</div>
+			</div>
+			
+			<div class="i-field-checkbox no-label">
+				<label for="checkbox">Checkbox: </label>
+
+				<div class="i-input-box">
+					<span icon="checkbox"></span>
+					<input type="checkbox" name="checkbox" id="checkbox_one" value="">
+				</div>
+			</div>
+			
+			<div class="i-field-select no-label">
+				<label for="select">Select: </label>
+
+				<div class="i-input-box">
+					<select name="select" id="select">
+						<option value="alpha">Option 01</option>
+						<option value="beta">Option 02</option>
+					</select>
+				</div>
+			</div>
+						
+			<div class="i-field-textarea no-label">
+				<label for="textarea">Textarea: </label>
+				
+				<div class="i-input-box">
+					<textarea name="textarea" id="textarea" rows="5" cols="30" placeholder="Type a message"></textarea>
+				</div>
+			</div>
+
+		</section><!-- END FIELD GROUP -->
 				
 	</section>
+	
+	<section>
+	
+		<section>
+		
+			<h2>Default Notifications</h2>
+		
+			<p class="i-notification i-confirm">Confirmation</p>
+
+			<p class="i-notification i-warning">Warning</p>
+
+			<p class="i-notification i-alert">Alert</p>
+
+		</section>
+		
+	</section>
+
 
 	<footer>
 

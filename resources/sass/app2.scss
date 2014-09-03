@@ -21,8 +21,11 @@ $c-70: rgba(000,000,000, 0.7);
 $c-80: rgba(000,000,000, 0.8);
 $c-90: rgba(000,000,000, 0.9); // DARK
 
-
 $base-color: 		#000;
+
+$i-confirm: hsla(101, 72%, 37%, 1);  // Green
+$i-warning: #ffc53a;                 // Yellow
+$i-alert: 	rgb(172, 34, 34);        // Red
 
 $font-fam: 			"Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
 $font-size: 		16pt;
@@ -30,7 +33,6 @@ $font-color: 		#000;
 $font-light: 		200;
 $font-bold: 		400;
 $font-lineheight: 	30pt;
-//$font-kern:			0pt;
 
 $link-font-color: 	$base-color;
 
@@ -243,6 +245,19 @@ a[href^="mailto"] {
 	}
 }
 
+@function set-notification-text-color($color) {
+  
+  @if (lightness($color) > 50) {
+  
+    @return #000000; // Lighter backgorund, return dark color
+  
+  } @else {
+  
+    @return #ffffff; // Darker background, return light color
+  
+  }
+}
+
 /*==============================================
   HTML RESET
 ==============================================*/
@@ -334,13 +349,24 @@ a {
 }
 
 %form-sym{
-	width: 100%;
-	height: 100%;
+	width: 95%;
+	height: 95%;
 	position: absolute;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
+	text-align: center;
+}
+
+%notification {
+  border-radius: 3pt;
+  display: block;
+  font-family: sans-serif;
+  padding: 10pt 20pt;
+  margin: 10pt auto;
+  width: 30%;
+  text-align: center;
 }
 
 /*==============================================
@@ -403,11 +429,19 @@ section > nav {
   INPUT FIELDS
 ==============================================*/
 
+.i-fieldgroup {
+	&.no-label{
+		[class^="i-field-"] label{
+			display: none;
+		}
+	}
+}
+
 [class^="i-field-"] {
 	@extend .hbox;
 	@extend %row;
 	border-bottom: 1px solid white;
-
+	
 	& > * {
 		//border: 1px solid gray;
 		padding: 5pt 10pt;
@@ -435,6 +469,7 @@ section > nav {
 			background: 		transparent;
 			font-size: 100%;			
 		}
+		
 		[type=radio],
 		[type=checkbox] {
 			@extend %form-sym;
@@ -445,18 +480,25 @@ section > nav {
 		}
 	}
 }
+
 [class^="i-field-"] {
 	select:checked+[type=checkbox]::after {
 		color: red;
 	}
-	
 }
 
 [icon="checkbox"] {
 	@include icon(after, check);
 }
+
 [icon="radio"] {
 	@include icon(after, on);
+}
+
+[type="radio"] {
+	color: $c-50;
+	background-color: $c-50 !important;
+	-webkit-appearance: sliderthumb-horizontal;
 }
 
 label {
@@ -464,6 +506,7 @@ label {
 	color: set-text-color($base-color);
 	padding: 5pt 20pt 5pt 20pt;
 }
+
 select {
 	max-width: 100%;
 	max-width: 100%;
@@ -493,6 +536,7 @@ select {
 		outline: none;
 	}
 }	
+
 textarea {
 	width: 100%;
 	border: 0;
@@ -552,10 +596,34 @@ header,
 footer {
 
 }
+
+body > header {
+	padding-top: 60pt;
+}
 body > header,
+
 body > section {
 	padding-bottom: 20pt;
 	border-bottom: 1pt solid $c-50;
+}
+
+.i-notification {
+	@extend %notification;
+	
+	&.i-confirm {
+	  background: $i-confirm;
+	  color: set-notification-text-color($i-confirm);
+	}
+	
+	&.i-warning {
+	  background: $i-warning;
+	  color: set-notification-text-color($i-warning);
+	}
+	
+	&.i-alert {
+	  background: $i-alert;
+	  color: set-notification-text-color($i-alert);
+	}
 }
 
 
