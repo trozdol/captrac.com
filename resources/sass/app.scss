@@ -1,0 +1,515 @@
+/*=======================================
+
+AUTHOR: 	SHAYNE TROSDAHL
+DATE: 		AUG 05 2014
+PROJECT:	CAPTRAC.com
+
+=======================================*/
+
+
+//======================================
+// VARIABLES
+//======================================
+
+$c-10: rgba(000,000,000, 0.1); // LIGHT
+$c-20: rgba(000,000,000, 0.2);
+$c-30: rgba(000,000,000, 0.3);
+$c-40: rgba(000,000,000, 0.4);
+$c-50: rgba(000,000,000, 0.5); // MID TONE
+$c-60: rgba(000,000,000, 0.6);
+$c-70: rgba(000,000,000, 0.7);
+$c-80: rgba(000,000,000, 0.8);
+$c-90: rgba(000,000,000, 0.9); // DARK
+
+
+$base-color: 		#000;
+
+$font-fam: 			"Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
+$font-size: 		16pt;
+$font-color: 		#000;
+$font-light: 		200;
+$font-bold: 		400;
+$font-lineheight: 	30pt;
+//$font-kern:			0pt;
+
+$link-font-color: 	$base-color;
+
+// RESPONSIVE DIMENSIONS
+
+$tablet-landscape:	1024px;
+$tablet-portrait: 	768px;
+$phone-landscape: 	560px;
+$phone-portrait: 	320px;
+
+@charset "UTF-8";
+
+$icons:(
+	anchor:			a,
+	box:			b,
+	upload:			c,
+	dont:			d,
+	power:			e,
+	rss:			f,
+	group:			g,
+	help:			h,
+	info:			i,
+	link:			j,
+	heart:			k,
+	list:			l,
+	music:			m,
+	note:			n,
+	dir:			o,
+	pen:			p,
+	chat:			q,
+	repeat:			r,
+	search:			s,
+	time:			t,
+	switch:			u,
+	camera:			v,
+	wordbub:		w,
+	tools:			x,
+	gear:			y,
+	tags:			z,
+
+	chain:			A,
+	bird:			B,
+	cloud:			C,
+	close:			D,
+	eye:			E,
+	doc:			F,
+	globe:			G,
+	home:			H,
+	inbox:			I,
+	conflict:    	J,
+	key:    		K,
+	lens:    		L,
+	mail:    		M,
+	news:    		N,
+	case:    		O,
+	photo:    		P,
+	on:    			Q,
+	action:    		R,
+	star:    		S,
+	plane:    		T,
+	user:    		U,
+	vidcam:    		V,
+	write:    		W,
+	truck:    		X,
+	linechart:    	Y,
+	piechart:    	Z,
+	
+	expand: 		'`',
+	refresh: 		1,
+	checkcir: 		2,
+	check: 			3,
+	play: 			4,
+	pause: 			5,
+	stop: 			6,
+	forward: 		7,
+	rewind: 		8,
+	video: 			9,
+	loop: 			0,
+	delete: 		'-',
+	batt: 			'=',
+	left: 			'[',
+	right: 			']',
+	cal: 			'\\',
+	shuffle: 		';',
+	
+	download:		'~',
+	warning:	    '!',
+	location:	    '@',
+	trash:	    	'#',
+	cart:	    	'$',
+	bank:	    	'%',
+	flag:	    	'^',
+	plus:	    	'&',
+	multiply:	    '*',
+	lock:	    	'(',
+	unlock:	    	')',
+	minus:	    	'_',
+	pluscir:	    '+',
+	up:	    		'{',   
+	down:	    	'}',
+	screens:	    '|'
+); 
+
+@mixin icon($position: before, $icon: false, $styles: true) {
+    
+    @if $position == both {
+        $position: 'before, &:after';
+    }
+    
+    // Either a :before or :after pseudo-element, or both, defaulting to :before
+    &:#{$position} {
+    
+        @if $icon {
+            // A particular icon has been specified
+            content: "#{map-get($icons, $icon)}";
+        }
+    
+        @if $styles {
+            // Supportive icon styles required
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-family: 'Pictos';
+            font-size: 240%;
+            position: relative;
+            left: -10pt;
+			top: 1.8pt;
+        }
+    
+        // Include any extra rules supplied for the pseudo-element
+        @content;
+    }
+}
+
+a[href^="mailto"] {
+    @include icon(before, mail);
+}
+
+[icon^="list"] {
+    @include icon(before, menu);
+}
+
+@font-face {
+	font-family: 'Pictos';
+	src: url('../fonts/pictos/pictos-web.eot?-xwcd9w');
+	src: url('../fonts/pictos/pictos-web.eot?#iefix-xwcd9w') format('embedded-opentype'), url('../fonts/pictos/pictos-web.woff?-xwcd9w') format('woff'), url('../fonts/pictos/pictos-web.ttf?-xwcd9w') format('truetype'), url('../fonts/pictos/pictos-web.svg?-xwcd9w#Orora-Icons') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.icon {
+  font-family: "Pictos" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;	
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin prefix($property, $value) {
+	-webkit-#{$property}: $value;
+	   -moz-#{$property}: $value;
+		-ms-#{$property}: $value;
+		 -o-#{$property}: $value;
+		 	#{$property}: $value;
+}
+
+//======================================
+// FUNCTIONS
+//======================================
+
+@function set-text-color($color) {
+
+	@if (lightness($color) > 50) {
+
+		@return #000000; 
+		
+	} @else {
+
+		@return #ffffff; 
+		
+	}
+}
+
+//======================================
+// FLEX HELPER
+//======================================
+
+.fbox {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+.hbox {
+	@extend .fbox;
+	
+	-ms-box-orient: horizontal;
+	-webkit-flex-flow: row;
+	   -moz-flex-flow: row;
+			flex-flow: row;
+}
+.vbox {
+	@extend .fbox;
+
+	-ms-box-orient: vertical;
+	-webkit-flex-flow: column;
+	   -moz-flex-flow: column;
+			flex-flow: column;
+}
+
+//======================================
+// COMMON
+//======================================
+
+ * {
+	box-sizing: border-box;
+}
+
+ html, body {
+	background: lighten(#000, 95%);
+	
+	/* TYPOGRAPHY DEFAULTS */
+	font-family:	$font-fam;
+	font-size: 		$font-size;
+	font-weight: 	$font-light;
+	line-height: 	$font-lineheight;
+	text-rendering: optimizeLegibility;
+	color: 			$font-color;
+	vertical-align: baseline;
+
+}
+
+ a {
+    color: #0277bb;
+    text-decoration: none;    
+    -webkit-transition: color .1s linear;
+    -moz-transition: color .1s linear;
+    transition: color .1s linear;
+}
+
+ a:hover {
+    color: #01476f
+}
+
+ a:active, a:focus {
+    color: #01476f
+}
+
+/*======================================
+	HTML TYPOGRAPHY TAGS
+======================================*/
+
+ body, div, dl, dt, dd, 
+ ul, ol, li, 
+ h1, h2, h3, h4, h5, h6, 
+ pre, code, 
+ form, fieldset, legend, input, textarea, 
+ p, blockquote, 
+ th, td {
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+}
+
+ header, 
+ footer {
+	padding: 20px;
+	z-index: 5;
+	max-width: 90%;
+	margin: 0 auto;
+	min-height: 48pt;
+}
+
+ nav,
+ section {
+	background: #fff;
+	max-width: 90%;
+	margin: 0 auto;
+	min-height: 48pt;
+	box-shadow: 0 1pt 3pt 0 $c-60;
+	border-radius: 1pt;
+}
+
+/*======================================
+	SITE NAVIGATION
+======================================*/
+
+ nav {
+	//FLEX ATTRIBUTES
+	@include prefix(flex, 1 1 auto);		
+	@extend .hbox;
+	align-items: flex-end;
+	justify-content: flex-center;
+	flex-wrap: wrap;
+	line-height: 48pt;
+	
+	a {
+		// BASE STRUCTURE
+		@include prefix(flex, 1 1 auto);
+		font-size: 80%; 
+		height: 48pt;
+		white-space: nowrap;
+		vertical-align: top;
+		border-width: 0 ;
+		border-style: solid;
+
+		text-transform: uppercase;
+		text-align: center;
+		
+		padding: 0 3%;
+
+		&:last-child { 
+			// LAST LINK ITEM ONLY
+			border-width: 0 0 0 0;
+		}
+		
+		@media screen and (max-width: $phone-portrait) {		
+			border-width: 0 0 1pt 0;
+			@include prefix(flex, 1 100%);
+			
+			&:first-child { 
+				// LAST LINK ITEM ONLY
+				border-width: 1pt 0 1pt 0;
+			}
+			&:last-child { 
+				// LAST LINK ITEM ONLY
+				border-width: 0 0 1pt 0;
+			}
+
+		}
+	}
+}
+
+/*======================================
+	COMPONENTS / TOOLBARS
+======================================*/
+
+.i-bar {
+	background: #fff;
+	height: 48pt;
+	line-height: 48pt;
+	box-shadow: 0pt 1pt 3pt $c-20;
+
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	
+	> * {
+		 display: inline-block ;
+		 vertical-align: top;
+		 white-space: nowrap;
+		 margin: 0;
+		 padding: 0;
+	 }
+	 
+	.i-title {
+		color: $c-60;
+		//font-size: 20pt;
+		//letter-spacing: 1;				
+		margin: 0 16pt;
+	}
+	
+	 a, .i-text-btn {
+		//line-height: 48pt;
+		color: $c-50;
+		font-size: 12pt;
+		font-weight: 600;
+		
+		text-align: center;
+		text-decoration: none;
+		text-transform: uppercase;
+		
+		//height: 48pt;
+		padding: 0pt 15pt;
+		max-width: 100%;
+	}
+}
+
+ header {
+	margin-top: 50pt;
+}
+
+.i-icon-btn {
+	background: transparent center center no-repeat;
+	background-size: 24px 24px;
+	border: 0;
+	display: block;
+	height: 48px;
+	overflow: hidden;
+	text-indent: -9999px;
+	top: 8px;
+	width: 48px;
+	position: fixed;
+}
+
+/*======================================
+	COMPONENTS / FIELDS
+======================================*/
+
+.i-fieldgroup {
+	padding: 20px;
+}
+
+[class^="i-field-"] {
+	@extend .hbox;
+	
+	& > * {
+		//border: 1px solid gray;
+		padding: 5pt 10pt;
+	}
+	
+	label {
+		@include prefix(flex, 1);
+		min-width: 30%;
+	}
+	
+	.i-input-box {
+		@include prefix(flex, 2);
+		min-width: 70%;
+		color: $c-60;
+		
+		input {
+			width: 				100%;
+			line-height: 		40px;
+			font-size: 			$font-size;
+			-webkit-appearance: none;
+			appearance: 		none;
+			outline: 			none;
+			border: 			none;
+			background: 		transparent;
+			color: $c-60;
+			font-size: 80%;
+		}
+	}
+}
+
+[type=radio] {
+}
+
+label {
+	background-color: lighten($base-color, 50%);
+	color: set-text-color($base-color);
+	font-size: 80%;
+	padding: 5pt 20pt 5pt 20pt;
+}
+
+.i-input-box {
+	color: set-text-color($base-color);
+	background-color: lighten($base-color, 90%);
+	padding: 5pt 5pt 5pt 10pt;
+}
+
+textarea {
+	width: 100%;
+	border: 0;
+	background: transparent;
+	outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
