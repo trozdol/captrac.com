@@ -11,17 +11,17 @@ PROJECT:	CAPTRAC.com
 // VARIABLES
 //======================================
 
-$c-10: rgba(000,000,000, 0.1); // LIGHT
-$c-20: rgba(000,000,000, 0.2);
-$c-30: rgba(000,000,000, 0.3);
-$c-40: rgba(000,000,000, 0.4);
-$c-50: rgba(000,000,000, 0.5); // MID TONE
-$c-60: rgba(000,000,000, 0.6);
-$c-70: rgba(000,000,000, 0.7);
-$c-80: rgba(000,000,000, 0.8);
-$c-90: rgba(000,000,000, 0.9); // DARK
+$c-10: rgba(255,200,000, 0.1); // LIGHT
+$c-20: rgba(255,200,000, 0.2);
+$c-30: rgba(255,200,000, 0.3);
+$c-40: rgba(255,200,000, 0.4);
+$c-50: rgba(255,200,000, 0.5); // MID TONE
+$c-60: rgba(255,200,000, 0.6);
+$c-70: rgba(255,200,000, 0.7);
+$c-80: rgba(255,200,000, 0.8);
+$c-90: rgba(255,200,000, 0.9); // DARK
 
-$base-color: 		#000;
+$base-color: 		#ae2700;
 
 $i-confirm: hsla(101, 72%, 37%, 1);  // Green
 $i-warning: #ffc53a;                 // Yellow
@@ -29,7 +29,7 @@ $i-alert: 	rgb(172, 34, 34);        // Red
 
 $font-fam: 			"Helvetica Neue", HelveticaNeue, "Helvetica-Neue", Helvetica, "BBAlpha Sans", sans-serif;
 $font-size: 		16pt;
-$font-color: 		#000;
+$font-color: 		red;
 $font-light: 		200;
 $font-bold: 		400;
 $font-lineheight: 	30pt;
@@ -50,12 +50,12 @@ $phone-portrait: 	320px;
 $row-height: 40pt;
 $font-size: 16pt;
 $line-height: ($font-size * .5) + $font-size;
-$base-color: #000;
+//$base-color: #000;
 
 $light:  lighten($base-color, 90%); 
-$mid:    lighten($base-color, 70%);
-$dark:   lighten($base-color, 50%);
-$text:   lighten($base-color, 30%);
+$mid:    lighten($base-color, 60%);
+$dark:   lighten($base-color, 25%);
+$text:   lighten($base-color, 0%);
 $link:   #046380;
 
 /*==============================================
@@ -359,15 +359,7 @@ a {
 	text-align: center;
 }
 
-%notification {
-  border-radius: 3pt;
-  display: block;
-  font-family: sans-serif;
-  padding: 10pt 20pt;
-  margin: 10pt auto;
-  width: 30%;
-  text-align: center;
-}
+
 
 /*==============================================
   STAND ALONE BUTTON
@@ -417,7 +409,7 @@ nav {
   a {
     @extend %a;
 
-    background-color:  $light;
+    background-color:  $mid;
   }
 }
 
@@ -457,8 +449,8 @@ section > nav {
 		@include prefix(flex, 2);
 		min-width: 70%;
 		position: relative;
-		color: $c-60;
-		background-color: $c-20;
+		color:  set-text-color($mid);
+		background-color: $mid;
 		
 		input, select, textarea {
 			width: 				100%;
@@ -467,7 +459,7 @@ section > nav {
 			outline: 			none;
 			border: 			none;
 			background: 		transparent;
-			font-size: 100%;			
+			font-size: 			100%;			
 		}
 		
 		[type=radio],
@@ -483,7 +475,7 @@ section > nav {
 
 [class^="i-field-"] {
 	select:checked+[type=checkbox]::after {
-		color: red;
+		color: $mid;
 	}
 }
 
@@ -496,13 +488,13 @@ section > nav {
 }
 
 [type="radio"] {
-	color: $c-50;
-	background-color: $c-50 !important;
+	color: set-text-color($mid);
+	background-color: $mid !important;
 	-webkit-appearance: sliderthumb-horizontal;
 }
 
 label {
-	background-color: lighten($base-color, 50%);
+	background-color: lighten($base-color, 10%);
 	color: set-text-color($base-color);
 	padding: 5pt 20pt 5pt 20pt;
 }
@@ -530,7 +522,7 @@ select {
 		color: transparent;
 	}
 	&:hover {
-		background: $c-30;
+		background: $mid;
 	}
 	&:focus {
 		outline: none;
@@ -549,10 +541,11 @@ textarea {
 ==============================================*/
 
 .i-bar {
-	background: #fff;
+	color: set-text-color($base-color);
+	background: $base-color;
 	height: 48pt;
 	line-height: 48pt;
-	box-shadow: 0pt 1pt 3pt $c-20;
+	box-shadow: 0pt 1pt 3pt $dark;
 
 	position: fixed;
 	top: 0;
@@ -569,7 +562,7 @@ textarea {
 	 }
 	 
 	.i-title {
-		color: $c-60;
+		color: set-text-color($base-color);
 		//font-size: 20pt;
 		//letter-spacing: 1;				
 		margin: 0 16pt;
@@ -577,7 +570,7 @@ textarea {
 	
 	 a, .i-text-btn {
 		//line-height: 48pt;
-		color: $c-50;
+		color: set-text-color($base-color);
 		font-size: 12pt;
 		font-weight: 600;
 		
@@ -588,11 +581,17 @@ textarea {
 		//height: 48pt;
 		padding: 0pt 15pt;
 		max-width: 100%;
+
+		&:hover, &:active {
+			-webkit-transition: all ease-out .25s;
+			background-color: lighten($base-color, 20%);
+		}
+
 	}
 }
 
 section,
-header, 
+header,
 footer {
 
 }
@@ -604,7 +603,20 @@ body > header,
 
 body > section {
 	padding-bottom: 20pt;
-	border-bottom: 1pt solid $c-50;
+	border-bottom: 1pt solid $dark;
+}
+
+/*==============================================
+  NOTIFICATIONS
+==============================================*/
+
+%notification {
+  border-radius: 3pt;
+  display: block;
+  font-family: sans-serif;
+  padding: 10pt 20pt;
+  margin: 10pt auto;
+  text-align: center;
 }
 
 .i-notification {
@@ -627,7 +639,30 @@ body > section {
 }
 
 
+button {
+	color: set-text-color($base-color);
+	background: $base-color;
 
+	font-size: 11pt;
+	font-weight: 300;
+	
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	
+	line-height: 40pt;
+	
+	padding: 0pt 15pt;
+	max-width: 100%;
+	min-width: 90pt;
+	outline: none;
+	border: none;
+	
+	&:hover, &:active {
+		-webkit-transition: all ease-out .25s;
+		background-color: lighten($base-color, 20%);
+	}
+}
 
 
 
